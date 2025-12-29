@@ -1,0 +1,126 @@
+assetId,parentAssetId,assetType,parentAssetType
+A,B,Repository,Organization
+C,A,Pipeline,Repository
+D,C,Container Image,Pipeline
+E,D,Run Image,Container Image
+F,E,VM Instance,Run Image
+G,E,VM Instance,Run Image
+H,A,IaC Resource,Repository
+I,A,Pipeline,Repository
+J,I,Container Image,Pipeline
+K,J,Run Image,Container Image
+L,K,VM Instance,Run Image
+M,K,VM Instance,Run Image
+BA,BB,Repository,Organization
+BC,BA,Pipeline,Repository
+BD,BC,Container Image,Pipeline
+BE,BD,Run Image,Container Image
+BF,BE,VM Instance,Run Image
+BG,BE,VM Instance,Run Image
+BH,BE,VM Instance,Run Image
+BI,BA,Pipeline,Repository
+BJ,BI,Container Image,Pipeline
+BK,BJ,Run Image,Container Image
+BL,BK,VM Instance,Run Image
+BM,BK,VM Instance,Run Image
+BN,BA,IaC Resource,Repository
+BO,BB,Repository,Organization
+BP,BO,Pipeline,Repository
+BQ,BP,Container Image,Pipeline
+BR,BQ,Run Image,Container Image
+BS,BR,VM Instance,Run Image
+BT,BR,VM Instance,Run Image
+CA,CB,Repository,Organization
+CC,CA,Pipeline,Repository
+CD,CC,Container Image,Pipeline
+CE,CD,Run Image,Container Image
+CF,CE,VM Instance,Run Image
+CG,CE,VM Instance,Run Image
+CH,CA,IaC Resource,Repository
+CI,CA,Pipeline,Repository
+CJ,CI,Container Image,Pipeline
+CK,CJ,Run Image,Container Image
+CL,CK,VM Instance,Run Image
+CM,CK,VM Instance,Run Image
+CN,CB,Repository,Organization
+CO,CN,Pipeline,Repository
+CP,CO,Container Image,Pipeline
+CQ,CP,Run Image,Container Image
+CR,CQ,VM Instance,Run Image
+CS,CQ,VM Instance,Run Image
+CT,CN,IaC Resource,Repository
+CU,CB,Repository,Organization
+CV,CU,Pipeline,Repository
+CW,CV,Container Image,Pipeline
+CX,CW,Run Image,Container Image
+CY,CX,VM Instance,Run Image
+CZ,CX,VM Instance,Run Image
+DA,CX,VM Instance,Run Image
+DB,CB,Repository,Organization
+DC,DB,Pipeline,Repository
+DD,DC,Container Image,Pipeline
+DE,DD,Run Image,Container Image
+DF,DE,VM Instance,Run Image
+DG,DE,VM Instance,Run Image
+DH,DB,IaC Resource,Repository
+DI,CB,Repository,Organization
+DJ,DI,Pipeline,Repository
+DK,DJ,Container Image,Pipeline
+DL,DK,Run Image,Container Image
+DM,DL,VM Instance,Run Image
+DN,DL,VM Instance,Run Image
+DO,DI,Pipeline,Repository
+DP,DO,Container Image,Pipeline
+DQ,DP,Run Image,Container Image
+DR,DQ,VM Instance,Run Image
+DS,DQ,VM Instance,Run Image
+DT,DQ,VM Instance,Run Image
+DU,CB,Repository,Organization
+DV,DU,Pipeline,Repository
+DW,DV,Container Image,Pipeline
+DX,DW,Run Image,Container Image
+DY,DX,VM Instance,Run Image
+DZ,DX,VM Instance,Run Image
+EA,DU,IaC Resource,Repository
+EB,B,Repository,Organization
+EC,EB,Pipeline,Repository
+ED,EC,Container Image,Pipeline
+EE,ED,Run Image,Container Image
+EF,EE,VM Instance,Run Image
+EG,EE,VM Instance,Run Image
+EH,EB,IaC Resource,Repository
+FA,FB,Repository,Organization
+FC,FB,Repository,Organization
+FD,FA,Pipeline,Repository
+FE,FC,Pipeline,Repository
+FF,FD,Container Image,Pipeline
+FG,FE,Container Image,Pipeline
+FH,FF,Run Image,Container Image
+FI,FG,Run Image,Container Image
+FJ,FH,VM Instance,Run Image
+FK,FI,VM Instance,Run Image
+FL,FK,Organization,VM Instance
+GA,GB,Repository,Organization
+GC,GB,Repository,Organization
+GD,GB,Repository,Organization
+GE,GA,Pipeline,Repository
+GF,GC,Pipeline,Repository
+GG,GD,Pipeline,Repository
+GH,GE,Container Image,Pipeline
+GI,GE,Container Image,Pipeline
+GJ,GE,Container Image,Pipeline
+GK,GH,Run Image,Container Image
+GL,GH,Run Image,Container Image
+GM,GH,Run Image,Container Image
+GN,GH,Run Image,Container Image
+GO,GI,Run Image,Container Image
+GP,GI,Run Image,Container Image
+GQ,GI,Run Image,Container Image
+GR,GI,Run Image,Container Image
+GS,GJ,Run Image,Container Image
+GT,GJ,Run Image,Container Image
+GU,GJ,Run Image,Container Image
+GV,GJ,Run Image,Container Image
+GW,GK,VM Instance,Run Image
+GX,GO,VM Instance,Run Image
+GY,GS,VM Instance,Run Image

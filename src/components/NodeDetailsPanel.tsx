@@ -99,22 +99,22 @@ export const NodeDetailsPanel = ({
           </div>
         </div>
 
-        {/* Path Highlighting Info */}
+        {/* Connected Subgraph Info */}
         {highlightedPaths && (
           <div className="bg-gradient-to-br from-slate-800/70 to-slate-800/50 rounded-lg p-4 border border-slate-700/50">
-            <label className="text-slate-300 text-sm font-semibold mb-3 block">Path Highlighting</label>
+            <label className="text-slate-300 text-sm font-semibold mb-3 block">Connected Subgraph</label>
             <div className="space-y-3">
               <div className="flex items-center justify-between bg-emerald-900/20 rounded p-2 border border-emerald-700/30">
                 <div className="flex items-center space-x-2">
                   <div className="w-3 h-3 rounded-full bg-emerald-500 shadow-lg shadow-emerald-500/50"></div>
-                  <span className="text-xs text-slate-300">Paths FROM</span>
+                  <span className="text-xs text-slate-300">Ancestors</span>
                 </div>
                 <span className="text-sm font-bold text-emerald-400">{highlightedPaths.fromNodes.size}</span>
               </div>
               <div className="flex items-center justify-between bg-blue-900/20 rounded p-2 border border-blue-700/30">
                 <div className="flex items-center space-x-2">
                   <div className="w-3 h-3 rounded-full bg-blue-500 shadow-lg shadow-blue-500/50"></div>
-                  <span className="text-xs text-slate-300">Paths TO</span>
+                  <span className="text-xs text-slate-300">Descendants</span>
                 </div>
                 <span className="text-sm font-bold text-blue-400">{highlightedPaths.toNodes.size}</span>
               </div>
@@ -122,7 +122,7 @@ export const NodeDetailsPanel = ({
                 <div className="flex items-center justify-between bg-purple-900/20 rounded p-2 border border-purple-700/30">
                   <div className="flex items-center space-x-2">
                     <div className="w-3 h-3 rounded-full bg-purple-500 shadow-lg shadow-purple-500/50"></div>
-                    <span className="text-xs text-slate-300">Both directions</span>
+                    <span className="text-xs text-slate-300">Bidirectional</span>
                   </div>
                   <span className="text-sm font-bold text-purple-400">
                     {Array.from(highlightedPaths.fromNodes).filter(id => highlightedPaths.toNodes.has(id)).length}
@@ -139,7 +139,10 @@ export const NodeDetailsPanel = ({
             <label className="text-slate-400 text-xs uppercase tracking-wider font-semibold">
               Parents ({selectedNode.parents.length})
             </label>
-            <div className="mt-2 space-y-2 max-h-40 overflow-y-auto custom-scrollbar">
+            <div className="mt-2 space-y-2 max-h-60 overflow-y-auto pr-2" style={{
+              scrollbarWidth: 'thin',
+              scrollbarColor: '#475569 #1e293b'
+            }}>
               {selectedNode.parents.map((parentId) => (
                 <div
                   key={parentId}
@@ -159,7 +162,10 @@ export const NodeDetailsPanel = ({
             <label className="text-slate-400 text-xs uppercase tracking-wider font-semibold">
               Children ({selectedNode.children.length})
             </label>
-            <div className="mt-2 space-y-2 max-h-40 overflow-y-auto custom-scrollbar">
+            <div className="mt-2 space-y-2 max-h-60 overflow-y-auto pr-2" style={{
+              scrollbarWidth: 'thin',
+              scrollbarColor: '#475569 #1e293b'
+            }}>
               {selectedNode.children.map((childId) => (
                 <div
                   key={childId}

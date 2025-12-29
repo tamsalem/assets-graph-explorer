@@ -1,3 +1,4 @@
+import { useState, useRef, useEffect } from 'react';
 import type { ParseResult } from '../utils/csv';
 import type { Island } from '../utils/graph';
 
@@ -11,7 +12,7 @@ interface GraphToolbarProps {
   onSearch: (query: string) => void;
   layout: 'dagre' | 'fcose';
   onLayoutChange: (layout: 'dagre' | 'fcose') => void;
-  selectedType: string;
+  selectedTypes: Set<string>;
   onTypeChange: (type: string) => void;
   parseResult: ParseResult;
   graphDataNodes: Map<string, any>;
@@ -33,7 +34,7 @@ export const GraphToolbar = ({
   onSearch,
   layout,
   onLayoutChange,
-  selectedType,
+  selectedTypes,
   onTypeChange,
   parseResult,
   graphDataNodes,
@@ -44,6 +45,30 @@ export const GraphToolbar = ({
   onFitView,
   onZoomToLongestIsland,
 }: GraphToolbarProps) => {
+  const [showFilterDropdown, setShowFilterDropdown] = useState(false);
+  const filterRef = useRef<HTMLDivElement>(null);
+
+  // Close dropdown when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (filterRef.current && !filterRef.current.contains(event.target as Node)) {
+        setShowFilterDropdown(false);
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, []);
+
+  const getFilterLabel = () => {
+    if (selectedTypes.has('all')) {
+      return `All Types (${graphDataNodes.size})`;
+    }
+    const count = selectedTypes.size;
+    return count === 1
+      ? `${Array.from(selectedTypes)[0]} (${Array.from(graphDataNodes.values()).filter((n: any) => selectedTypes.has(n.type)).length})`
+      : `${count} Types Selected`;
+  };
   return (
     <div className="bg-slate-900/95 backdrop-blur-md border-b border-slate-700/50 px-4 py-3 flex flex-col gap-3 shadow-xl z-20">
       {/* Top Row: Navigation & Stats */}
@@ -140,24 +165,53 @@ export const GraphToolbar = ({
           <div className="h-4 w-px bg-slate-700/50" />
 
           {/* Filter Group */}
-          <div className="flex items-center space-x-2">
+          <div className="flex items-center space-x-2 relative" ref={filterRef}>
             <span className="text-xs font-semibold text-slate-500 uppercase tracking-wider">Filter</span>
-            <select
-              value={selectedType}
-              onChange={(e) => onTypeChange(e.target.value)}
-              className="bg-slate-800/50 border border-slate-600/50 rounded-md px-3 py-1 text-slate-200 text-xs focus:outline-none focus:ring-2 focus:ring-blue-500 cursor-pointer hover:bg-slate-800 max-w-[200px]"
+            <button
+              onClick={() => setShowFilterDropdown(!showFilterDropdown)}
+              className="bg-slate-800/50 border border-slate-600/50 rounded-md px-3 py-1 text-slate-200 text-xs focus:outline-none focus:ring-2 focus:ring-blue-500 cursor-pointer hover:bg-slate-800 min-w-[180px] flex items-center justify-between"
             >
-              <option value="all">All Types ({graphDataNodes.size})</option>
-              {Array.from(parseResult.types).sort().map((type) => {
-                const count = Array.from(graphDataNodes.values()).filter((n: any) => n.type === type).length;
-                if (count === 0) return null;
-                return (
-                  <option key={type} value={type}>
-                    {type} ({count})
-                  </option>
-                );
-              })}
-            </select>
+              <span className="truncate">{getFilterLabel()}</span>
+              <svg className={`w-4 h-4 ml-2 transition-transform ${showFilterDropdown ? 'rotate-180' : ''}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+              </svg>
+            </button>
+            
+            {showFilterDropdown && (
+              <div className="absolute top-full left-20 mt-1 bg-slate-800 border border-slate-600/50 rounded-lg shadow-xl z-50 min-w-[220px] max-h-[400px] overflow-y-auto">
+                <div className="p-2">
+                  {/* All Types Option */}
+                  <label className="flex items-center space-x-2 px-3 py-2 hover:bg-slate-700/50 rounded cursor-pointer">
+                    <input
+                      type="checkbox"
+                      checked={selectedTypes.has('all')}
+                      onChange={() => onTypeChange('all')}
+                      className="w-4 h-4 rounded border-slate-600 text-blue-500 focus:ring-2 focus:ring-blue-500 focus:ring-offset-0 bg-slate-700"
+                    />
+                    <span className="text-slate-200 text-sm">All Types ({graphDataNodes.size})</span>
+                  </label>
+                  
+                  <div className="h-px bg-slate-700 my-1"></div>
+                  
+                  {/* Individual Type Options */}
+                  {Array.from(parseResult.types).sort().map((type) => {
+                    const count = Array.from(graphDataNodes.values()).filter((n: any) => n.type === type).length;
+                    if (count === 0) return null;
+                    return (
+                      <label key={type} className="flex items-center space-x-2 px-3 py-2 hover:bg-slate-700/50 rounded cursor-pointer">
+                        <input
+                          type="checkbox"
+                          checked={selectedTypes.has(type)}
+                          onChange={() => onTypeChange(type)}
+                          className="w-4 h-4 rounded border-slate-600 text-blue-500 focus:ring-2 focus:ring-blue-500 focus:ring-offset-0 bg-slate-700"
+                        />
+                        <span className="text-slate-200 text-sm">{type} ({count})</span>
+                      </label>
+                    );
+                  })}
+                </div>
+              </div>
+            )}
           </div>
         </div>
 

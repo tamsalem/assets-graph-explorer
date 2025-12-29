@@ -37,7 +37,7 @@ export const GraphView = ({ parseResult, startingNodes, onBack }: GraphViewProps
   const [showLabels, setShowLabels] = useState(true);
   const [labelMode, setLabelMode] = useState<LabelMode>('both');
   const [layout, setLayout] = useState<LayoutType>('dagre');
-  const [selectedType, setSelectedType] = useState<string>('all');
+  const [selectedTypes, setSelectedTypes] = useState<Set<string>>(new Set(['all']));
   const [zoomLevel, setZoomLevel] = useState(1);
 
   // Build graph data
@@ -55,15 +55,15 @@ export const GraphView = ({ parseResult, startingNodes, onBack }: GraphViewProps
     return colors;
   }, [parseResult.types]);
 
-  // Filter nodes by selected type
+  // Filter nodes by selected types
   const filteredNodes = useMemo(() => {
-    if (selectedType === 'all') {
+    if (selectedTypes.has('all')) {
       return Array.from(graphData.nodes.values());
     }
     return Array.from(graphData.nodes.values()).filter((node) =>
-      node.type === selectedType
+      selectedTypes.has(node.type)
     );
-  }, [graphData.nodes, selectedType]);
+  }, [graphData.nodes, selectedTypes]);
 
   // Detect islands from filtered nodes
   const islands = useMemo(() => {
@@ -431,7 +431,31 @@ export const GraphView = ({ parseResult, startingNodes, onBack }: GraphViewProps
   };
 
   const handleTypeChange = (type: string) => {
-    setSelectedType(type);
+    setSelectedTypes(prev => {
+      const newSet = new Set(prev);
+      
+      if (type === 'all') {
+        // If clicking "all", select only "all"
+        return new Set(['all']);
+      }
+      
+      // Remove "all" if it was selected
+      newSet.delete('all');
+      
+      if (newSet.has(type)) {
+        // Deselect this type
+        newSet.delete(type);
+        // If nothing selected, select "all"
+        if (newSet.size === 0) {
+          return new Set(['all']);
+        }
+      } else {
+        // Select this type
+        newSet.add(type);
+      }
+      
+      return newSet;
+    });
   };
 
   const handleLayoutChange = (newLayout: LayoutType) => {
@@ -491,7 +515,7 @@ export const GraphView = ({ parseResult, startingNodes, onBack }: GraphViewProps
         onSearch={handleSearch}
         layout={layout}
         onLayoutChange={handleLayoutChange}
-        selectedType={selectedType}
+        selectedTypes={selectedTypes}
         onTypeChange={handleTypeChange}
         parseResult={parseResult}
         graphDataNodes={graphData.nodes}
