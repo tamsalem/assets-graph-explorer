@@ -6,7 +6,7 @@
   "main": "dist-electron/main.js",
   "scripts": {
     "dev": "vite",
-    "build": "tsc && tsc -p electron/tsconfig.json && vite build",
+    "build": "tsc && tsc -p electron/tsconfig.json && vite build && node -e \"require('fs').writeFileSync('dist-electron/package.json', '{\\\"type\\\":\\\"commonjs\\\"}')\"",
     "build:mac": "npm run build && electron-builder --mac",
     "debug-build": "npm run build && DEBUG=electron-builder* electron-builder --mac",
     "preview": "vite preview",

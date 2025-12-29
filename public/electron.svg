@@ -9,6 +9,9 @@
   <!-- Background with Rounded Corners -->
   <rect x="5" y="5" width="90" height="90" rx="20" ry="20" fill="white" />
 
+  <!-- Background with Rounded Corners -->
+  <rect x="5" y="5" width="90" height="90" rx="20" ry="20" fill="white" />
+
   <!-- Complex Graph Edges -->
   <g stroke="url(#electronGrad)" stroke-width="2" opacity="0.8">
     <!-- Central Hub Connections -->

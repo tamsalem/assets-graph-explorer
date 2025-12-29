@@ -27,7 +27,7 @@ function createWindow() {
 
 app.whenReady().then(() => {
   if (process.platform === 'darwin' && process.env.VITE_DEV_SERVER_URL) {
-    const iconPath = path.join(__dirname, '../public/electron.svg');
+    const iconPath = path.join(__dirname, '../public/electron.icns');
     const image = nativeImage.createFromPath(iconPath);
     app.dock?.setIcon(image);
   }
