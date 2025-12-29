@@ -33,8 +33,6 @@ jobs:
           if [ -f package-lock.json ]; then npm ci; else npm install; fi
 
       - name: Build and publish (macOS)
-        run: |
-          npm run build
-          npx electron-builder --mac --publish=always
+        run: npm run release
         env:
           GH_TOKEN: ${{ secrets.GH_TOKEN }}

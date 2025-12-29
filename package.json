@@ -6,8 +6,9 @@
   "main": "dist-electron/main.js",
   "scripts": {
     "dev": "vite",
-    "build": "tsc && vite build && electron-builder --mac",
-    "debug-build": "tsc && vite build && DEBUG=electron-builder* electron-builder --mac",
+    "build": "tsc && tsc -p electron/tsconfig.json && vite build",
+    "build:mac": "npm run build && electron-builder --mac",
+    "debug-build": "npm run build && DEBUG=electron-builder* electron-builder --mac",
     "preview": "vite preview",
     "pretest": "tsc && vite build",
     "test": "vitest run",

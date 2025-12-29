@@ -157,7 +157,7 @@ export const LandingPage = ({ onLoadGraph }: LandingPageProps) => {
                       or click to browse
                     </p>
                     <p className="text-slate-500 text-xs mt-3 font-mono">
-                      Format: assetId, parentAssetId, assetCategory
+                      Format: assetId, parentAssetId, assetType, parentAssetType
                     </p>
                   </div>
                 )}
