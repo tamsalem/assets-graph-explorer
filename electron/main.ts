@@ -1,4 +1,4 @@
-import { app, BrowserWindow } from 'electron';
+import { app, BrowserWindow, nativeImage } from 'electron';
 import path from 'path';
 
 // Handle creating/removing shortcuts on Windows when installing/uninstalling.
@@ -10,6 +10,7 @@ function createWindow() {
   const win = new BrowserWindow({
     width: 1200,
     height: 800,
+    icon: path.join(__dirname, process.env.VITE_DEV_SERVER_URL ? '../public/electron.icns' : '../dist/electron.icns'),
     webPreferences: {
       preload: path.join(__dirname, 'preload.js'),
       nodeIntegration: true,
@@ -25,6 +26,12 @@ function createWindow() {
 }
 
 app.whenReady().then(() => {
+  if (process.platform === 'darwin' && process.env.VITE_DEV_SERVER_URL) {
+    const iconPath = path.join(__dirname, '../public/electron.svg');
+    const image = nativeImage.createFromPath(iconPath);
+    app.dock?.setIcon(image);
+  }
+
   createWindow();
 
   app.on('activate', () => {

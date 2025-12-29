@@ -10,14 +10,18 @@
   ],
   "mac": {
     "target": "dmg",
-    "artifactName": "${productName}-${version}-mac.${ext}"
+    "icon": "public/electron.icns",
+    "artifactName": "${productName}-${version}-mac.${ext}",
+    "identity": null
   },
   "win": {
     "target": "nsis",
+    "icon": "public/electron.svg",
     "artifactName": "${productName}-${version}-setup.${ext}"
   },
   "linux": {
     "target": "AppImage",
+    "icon": "public/electron.svg",
     "artifactName": "${productName}-${version}-linux.${ext}"
   }
 }
